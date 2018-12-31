@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>holoclient test</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+  <div id="nodes"></div>
+
+  <script type="text/javascript" src="holoclient.js"></script>
+
+  <script type="text/javascript">
+
+   node("8888")
+   node("8889")
+
+   function node(port) {
+       const html = '<h3>Node at ##</h3>\
+       <form id="node##">\
+       <input type="text" id="message##"/>\
+       <button id="share##">Share</button><br />\
+       <input type="text" id="address##"/>\
+       <button id="get##">Get</button>\
+       </form>\
+       <button id="info##">Show Instances</button>\
+       <button id="close##">Close WS connection</button>\
+       <div id="output##"></div>'
+       const url =  'ws://localhost:'+port+"/"
+
+       div = document.getElementById('nodes')
+       div.innerHTML += replaceAll(html,"##",port)
+
+       window.holoclient.connect(url).then(({call, close}) => {
+           document.getElementById('share'+port).addEventListener('click', e => {
+               e.preventDefault()
+
+               const content = document.querySelector('#message'+port).value
+
+               call("test-instance", 'simple', 'main', 'share_item')({
+                   item: {content: content}
+               }).then(result => console.log(result))
+           })
+
+           document.getElementById('get'+port).addEventListener('click', e => {
+               e.preventDefault()
+
+               const content = document.querySelector('#address'+port).value
+
+
+               call("test-instance", 'simple', 'main', 'get_item')({
+                   address: content
+               }).then(result => console.log(result))
+           })
+
+
+           document.getElementById('info'+port).addEventListener('click', e => {
+               call('info/instances')().then(data => console.log(data))
+           })
+
+           document.getElementById('close'+port).addEventListener('click', e => {
+               close()
+           })
+       })
+   }
+
+
+
+   function getInstance(info, dna, agent) {
+       const entry = Object.entries(info)
+                           .find(([id, value]) => value.dna === dna && value.agent === agent)
+       if (entry) {
+           return entry[1].id
+       } else {
+           return null
+       }
+   }
+
+   function replaceAll(str, find, replace) {
+       return str.replace(new RegExp(find, 'g'), replace);
+   }
+  </script>
+</body>
+</html>
