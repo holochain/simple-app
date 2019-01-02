@@ -1,0 +1,52 @@
+[network]
+n3h_path = "/home/eric/code/metacurrency/holochain/n3h"
+n3h_persistence_path = "/tmp"
+bootstrap_nodes = []
+
+[[agents]]
+id = "test_agent1"
+name = "HoloTester1"
+public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
+key_file = "holo_tester.key"
+
+[[agents]]
+id = "test_agent2"
+name = "HoloTester2"
+public_address = "bagel-----------------------------------------------------------------------------AAADAq0mCu"
+key_file = "holo_tester.key"
+
+[[agents]]
+id = "test_agent3"
+name = "HoloTester3"
+public_address = "croissant-------------------------------------------------------------------------AAAEuHzxV4"
+key_file = "holo_tester.key"
+
+
+
+
+[[dnas]]
+id = "simple_app_dna"
+file = "dist/bundle.json"
+hash = "Qm328wyq38924y"
+
+
+[[instances]]
+id = "test-instance"
+dna = "simple_app_dna"
+agent = "test_agent1"
+[instances.logger]
+type = "simple"
+file = "simple_app.log"
+[instances.storage]
+type = "file"
+path = "tmp-storage"
+
+
+
+[[interfaces]]
+id = "websocket_interface"
+[interfaces.driver]
+type = "websocket"
+port = 8888
+[[interfaces.instances]]
+id = "test-instance"
