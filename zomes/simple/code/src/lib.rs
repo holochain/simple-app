@@ -10,6 +10,9 @@ extern crate holochain_core_types_derive;
 use hdk::{
     entry_definition::ValidatingEntryType,
     error::ZomeApiResult,
+    holochain_wasm_utils::api_serialization::{
+        get_links::GetLinksResult,
+    },
 };
 use hdk::holochain_core_types::{
     cas::content::Address, entry::Entry, dna::entry_types::Sharing, error::HolochainError, json::JsonString,
@@ -30,6 +33,15 @@ pub fn handle_get_item(address: Address) -> ZomeApiResult<Option<Entry>> {
     hdk::get_entry(address)
 }
 
+pub fn handle_add_link(base: Address, target: Address) -> ZomeApiResult<()> {
+    let address = hdk::link_entries(&base,&target,"the_tag")?;
+    Ok(())
+}
+
+pub fn handle_get_links(base: Address) -> ZomeApiResult<GetLinksResult> {
+    hdk::get_links(&base, "the_tag")
+}
+
 fn definition() -> ValidatingEntryType {
     entry!(
         name: "item",
@@ -42,9 +54,24 @@ fn definition() -> ValidatingEntryType {
 
         validation: |_item: Item, _ctx: hdk::ValidationData| {
             Ok(())
-        }
+        },
+
+        links: [
+            from!(
+                "item",
+                tag: "the_tag",
+                validation_package: || {
+                    hdk::ValidationPackageDefinition::Entry
+                },
+                validation: |_source: Address, _target: Address, _ctx: hdk::ValidationData | {
+                    Ok(())
+                }
+            )
+        ]
+
     )
 }
+
 define_zome! {
     entries: [
        definition()
@@ -63,6 +90,16 @@ define_zome! {
                 inputs: |address: Address|,
                 outputs: |result: ZomeApiResult<Option<Entry>>|,
                 handler: handle_get_item
+            }
+            add_link: {
+                inputs: |base: Address, target: Address|,
+                outputs: |result: ZomeApiResult<()>|,
+                handler: handle_add_link
+            }
+            get_links: {
+                inputs: |base: Address|,
+                outputs: |result: ZomeApiResult<GetLinksResult>|,
+                handler: handle_get_links
             }
         }
     }

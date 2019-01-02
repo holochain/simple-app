@@ -26,7 +26,7 @@ key_file = "holo_tester.key"
 
 [[dnas]]
 id = "simple_app_dna"
-file = "dist/bundle.json"
+file = "bundle.json"
 hash = "Qm328wyq38924y"
 
 
