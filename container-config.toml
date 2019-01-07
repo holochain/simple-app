@@ -34,13 +34,17 @@ hash = "Qm328wyq38924y"
 id = "test-instance"
 dna = "simple_app_dna"
 agent = "test_agent1"
-[instances.logger]
-type = "simple"
-file = "simple_app.log"
 [instances.storage]
 type = "file"
 path = "tmp-storage"
 
+[[instances]]
+id = "test-instancea"
+dna = "simple_app_dna"
+agent = "test_agent2"
+[instances.storage]
+type = "file"
+path = "tmp-storage2"
 
 
 [[interfaces]]
@@ -50,3 +54,14 @@ type = "websocket"
 port = 8888
 [[interfaces.instances]]
 id = "test-instance"
+
+[logger]
+type = "debug"
+  [[logger.rules.rules]]
+    pattern = "^err/"
+    color = "red"
+  [[logger.rules.rules]]
+    pattern = "^debug/dna"
+    color = "white"
+  [[logger.rules.rules]]
+    pattern = ".*"

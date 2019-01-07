@@ -24,6 +24,7 @@ pub struct Item {
 }
 
 pub fn handle_share_item(item: Item) -> ZomeApiResult<Address> {
+    hdk::debug(format!("sharing {:?}", item));
     let post_entry = Entry::App("item".into(), item.into());
     let address = hdk::commit_entry(&post_entry)?;
     Ok(address)

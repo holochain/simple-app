@@ -2,45 +2,34 @@
 // To learn more, go here: https://github.com/substack/tape
 const test = require('tape');
 
-const { ConfigBuilder, Container } = require("../../holochain-rust/nodejs_container")
+const { Config, Container } = require("../../holochain-rust/nodejs_container")
 
 //const dnaPath = "./dist/app_spec.hcpkg"
 const dnaPath = "./dist/bundle.json"
 
 // IIFE to keep config-only stuff out of test scope
-const config = (() => {
-  const agentAlice = ConfigBuilder.agent("alice")
+const container = (() => {
+  const agentAlice = Config.agent("alice")
 
-  const dna = ConfigBuilder.dna(dnaPath)
+  const dna = Config.dna(dnaPath)
 
-  const instanceAlice = ConfigBuilder.instance(agentAlice, dna)
+  const instanceAlice = Config.instance(agentAlice, dna)
 
-  return ConfigBuilder.container(instanceAlice)
+  const containerConfig = Config.container(instanceAlice)
+  return new Container(containerConfig)
 })()
 
 // Initialize the Container
-const container = new Container(config)
 container.start()
 
-// This function is a bit of temporary boilerplate to construct a convenient object
-// for testing. These objects will be created automatically with the new Scenario API,
-// and then this function will go away. (TODO)
-const makeCaller = (agentId) => {
-  const instanceId = agentId + '-' + dnaPath
-  return {
-    call: (zome, cap, fn, params) => container.call(instanceId, zome, cap, fn, params),
-    agentId: container.agent_id(instanceId)
-  }
-}
-
-const app = makeCaller('alice')
+const alice = container.makeCaller('alice', dnaPath)
 
 test('description of example test', (t) => {
   // Make a call to a Zome function
   // indicating the capability and function, and passing it an input
-    const addr = app.call("simple", "main", "share_item", {"item" : {"content":"sample content"}})
+    const addr = alice.call("simple", "main", "share_item", {"item" : {"content":"sample content"}})
 
-    const result = app.call("simple", "main", "get_item", {"address": addr.Ok})
+    const result = alice.call("simple", "main", "get_item", {"address": addr.Ok})
 
   // check for equality of the actual and expected results
   t.deepEqual(result, { Ok: { App: [ 'item', '{"content":"sample content"}' ] } })
