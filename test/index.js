@@ -7,7 +7,7 @@ const { Config, Container } = require("../../holochain-rust/nodejs_container")
 //const dnaPath = "./dist/app_spec.hcpkg"
 const dnaPath = "./dist/bundle.json"
 
-// IIFE to keep config-only stuff out of test scope
+// closure to keep config-only stuff out of test scope
 const container = (() => {
   const agentAlice = Config.agent("alice")
 
