@@ -38,14 +38,6 @@ agent = "test_agent1"
 type = "file"
 path = "tmp-storage"
 
-[[instances]]
-id = "test-instance2"
-dna = "simple_app_dna"
-agent = "test_agent2"
-[instances.storage]
-type = "file"
-path = "tmp-storage2"
-
 
 [[interfaces]]
 id = "websocket_interface"
@@ -54,14 +46,6 @@ type = "websocket"
 port = 8888
 [[interfaces.instances]]
 id = "test-instance1"
-
-[[interfaces]]
-id = "websocket_interface"
-[interfaces.driver]
-type = "websocket"
-port = 8889
-[[interfaces.instances]]
-id = "test-instance2"
 
 
 [logger]
