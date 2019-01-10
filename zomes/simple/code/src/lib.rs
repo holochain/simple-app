@@ -31,7 +31,7 @@ pub fn handle_share_item(item: Item) -> ZomeApiResult<Address> {
 }
 
 pub fn handle_get_item(address: Address) -> ZomeApiResult<Option<Entry>> {
-    hdk::get_entry(address)
+    hdk::get_entry(&address)
 }
 
 pub fn handle_add_link(base: Address, target: Address) -> ZomeApiResult<()> {
