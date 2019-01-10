@@ -2,7 +2,9 @@
 // To learn more, go here: https://github.com/substack/tape
 const test = require('tape');
 
-const { Config, Container } = require("../../holochain-rust/nodejs_container")
+// use this when running off your own dev instance of the nodejs_container
+//const { Config, Container } = require("../../holochain-rust/nodejs_container")
+const { Config, Container } = require("@holochain/holochain-nodejs")
 
 //const dnaPath = "./dist/app_spec.hcpkg"
 const dnaPath = "./dist/bundle.json"
