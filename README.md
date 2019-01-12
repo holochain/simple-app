@@ -23,17 +23,18 @@ This app was built to do multi-node testing of the same DNA from one user interf
 
 ```shell
 cd simple-app
-hc test | test/node_modules/faucet/bin/cmd.js
+hc test
 ```
 
-Note that by using the " | test/node_modules/faucet/bin/cmd.js" you lose the `console.log` output of your tests, but gain nice color coding.
-If you want to see the logs, just use `hc test`.
-
-4. Compile the DNA and run two instances of it using `hc` with:
+4. Compile the DNA and run two instances of it. First, in one terminal window, run:
 
 ```shell
-hc run --port 8888 --package &
-hc run --port 8889&
+hc run --port 8888 --package
+```
+
+Then, in another terminal window, run:
+```shell
+hc run --port 8889
 ```
 
 Finally to run the UI, simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
