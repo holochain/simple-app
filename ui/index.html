@@ -37,7 +37,6 @@
        html2 = replaceAll(html1,"@@",port)
        div.innerHTML += html2
        window.holoclient.connect(url).then(({call, close}) => {
-           alert("fish2")
            document.getElementById('share'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
