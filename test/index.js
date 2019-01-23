@@ -1,32 +1,25 @@
 // This test file uses the tape testing framework.
 // To learn more, go here: https://github.com/substack/tape
-const test = require('tape');
 
 // use this when running off your own dev instance of the nodejs_container
-//const { Config, Container } = require("../../holochain-rust/nodejs_container")
-const { Config, Container } = require("@holochain/holochain-nodejs")
+const { Config, Container, Scenario } = require("../../holochain-rust/nodejs_container")
+//const { Config, Container, Scenario } = require("@holochain/holochain-nodejs")
+
+Scenario.setTape(require('tape'))
 
 //const dnaPath = "./dist/app_spec.hcpkg"
 const dnaPath = "./dist/bundle.json"
 
-// closure to keep config-only stuff out of test scope
-const container = (() => {
-  const agentAlice = Config.agent("alice")
+const dna = Config.dna(dnaPath, 'app-spec')
 
-  const dna = Config.dna(dnaPath)
+const agentAlice = Config.agent("alice")
 
-  const instanceAlice = Config.instance(agentAlice, dna)
+const instanceAlice = Config.instance(agentAlice, dna)
 
-  const containerConfig = Config.container(instanceAlice)
-  return new Container(containerConfig)
-})()
+const scenario = new Scenario([instanceAlice])
 
-// Initialize the Container
-container.start()
 
-const alice = container.makeCaller('alice', dnaPath)
-
-test('description of example test', (t) => {
+scenario.runTape('test of share and get', async (t, { alice }) => {
   // Make a call to a Zome function
   // indicating the capability and function, and passing it an input
     const addr = alice.call("simple", "main", "share_item", {"item" : {"content":"sample content"}})
@@ -36,6 +29,4 @@ test('description of example test', (t) => {
   // check for equality of the actual and expected results
   t.deepEqual(result, { Ok: { App: [ 'item', '{"content":"sample content"}' ] } })
 
-  // ends this test
-  t.end()
 })
