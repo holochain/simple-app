@@ -11,11 +11,11 @@
 
   <script type="text/javascript">
 
-   node("8888","test-instance")
-   node("8889","test-instance")
+   node("8888","test-instance1")
+   node("8888","test-instance2")
 
    function node(port,instance_id) {
-       const html = '<h3>Node at ##</h3>\
+       const html = '<h3>Node for ## at @@</h3>\
        <form id="node##">\
        <input type="text" id="message##"/>\
        <button id="share##">Share</button><br />\
@@ -33,53 +33,55 @@
        const url =  'ws://localhost:'+port+"/"
 
        div = document.getElementById('nodes')
-       div.innerHTML += replaceAll(html,"##",port)
-
+       html1 = replaceAll(html,"##",instance_id)
+       html2 = replaceAll(html1,"@@",port)
+       div.innerHTML += html2
        window.holoclient.connect(url).then(({call, close}) => {
-           document.getElementById('share'+port).addEventListener('click', e => {
+           alert("fish2")
+           document.getElementById('share'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
-               const content = document.querySelector('#message'+port).value
+               const content = document.querySelector('#message'+instance_id).value
                call(instance_id, 'simple', 'main', 'share_item')({
                    item: {content: content}
                }).then(result => console.log(result))
            })
 
-           document.getElementById('get'+port).addEventListener('click', e => {
+           document.getElementById('get'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
-               const content = document.querySelector('#address'+port).value
+               const content = document.querySelector('#address'+instance_id).value
                call(instance_id, 'simple', 'main', 'get_item')({
                    address: content
                }).then(result => console.log(result))
            })
 
-           document.getElementById('link'+port).addEventListener('click', e => {
+           document.getElementById('link'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
-               const base = document.querySelector('#base'+port).value
-               const target = document.querySelector('#target'+port).value
+               const base = document.querySelector('#base'+instance_id).value
+               const target = document.querySelector('#target'+instance_id).value
                call(instance_id, 'simple', 'main', 'add_link')({
                    base: base,
                    target: target
                }).then(result => console.log(result))
            })
 
-           document.getElementById('get_links'+port).addEventListener('click', e => {
+           document.getElementById('get_links'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
-               const base = document.querySelector('#links_base'+port).value
+               const base = document.querySelector('#links_base'+instance_id).value
                call(instance_id, 'simple', 'main', 'get_links')({
                    base: base
                }).then(result => console.log(result))
            })
 
 
-           document.getElementById('info'+port).addEventListener('click', e => {
+           document.getElementById('info'+instance_id).addEventListener('click', e => {
                call('info/instances')().then(data => console.log(data))
            })
 
-           document.getElementById('close'+port).addEventListener('click', e => {
+           document.getElementById('close'+instance_id).addEventListener('click', e => {
                close()
            })
        })
