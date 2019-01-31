@@ -4,6 +4,10 @@
 [![Chat](https://img.shields.io/badge/chat-chat%2eholochain%2enet-blue.svg?style=flat-square)](https://chat.holochain.net)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
+
+HC_AGENT=testAgentPhil HC_N3H_BOOTSTRAP_NODE=/ip4/192.168.1.182/tcp/36497/ipfs/QmQxMSMCtetqXbSbANHCahQ6iUTYbrURcT7r6ZHnaRNYbH HC_N3H_PATH=/Users/philipbeadle/holochain/Holochain/n3h hc run -p 8888
+
+
 ***Simple app for doing multi-node testing**
 
 ## Overview

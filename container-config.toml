@@ -1,7 +1,7 @@
 [network]
-n3h_path = "/home/eric/code/metacurrency/holochain/n3h"
+n3h_path = "/Users/philipbeadle/holochain/Holochain/n3h"
 n3h_persistence_path = "/tmp"
-bootstrap_nodes = []
+bootstrap_nodes = ["/ip4/192.168.1.182/tcp/39629/ipfs/QmTZHqc4x1h2fCQYrLFQs8o9UF6BBBWrL1CkdWRHvZ2UpU"]
 
 [[agents]]
 id = "test_agent1"
@@ -37,12 +37,6 @@ agent = "test_agent1"
 [instances.storage]
 type = "memory"
 
-[[instances]]
-id = "test-instance2"
-dna = "simple_app_dna"
-agent = "test_agent2"
-[instances.storage]
-type = "memory"
 
 [[interfaces]]
 id = "websocket_interface"
@@ -51,8 +45,7 @@ type = "websocket"
 port = 8888
 [[interfaces.instances]]
 id = "test-instance1"
-[[interfaces.instances]]
-id = "test-instance2"
+
 
 [logger]
 type = "debug"

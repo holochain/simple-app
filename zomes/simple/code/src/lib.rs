@@ -80,28 +80,30 @@ define_zome! {
 
     genesis: || { Ok(()) }
 
-    functions: {
-        main (Public) {
-            share_item: {
-                inputs: |item: Item|,
-                outputs: |result: ZomeApiResult<Address>|,
-                handler: handle_share_item
-            }
-            get_item: {
-                inputs: |address: Address|,
-                outputs: |result: ZomeApiResult<Option<Entry>>|,
-                handler: handle_get_item
-            }
-            add_link: {
-                inputs: |base: Address, target: Address|,
-                outputs: |result: ZomeApiResult<()>|,
-                handler: handle_add_link
-            }
-            get_links: {
-                inputs: |base: Address|,
-                outputs: |result: ZomeApiResult<GetLinksResult>|,
-                handler: handle_get_links
-            }
+    functions: [
+        share_item: {
+            inputs: |item: Item|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: handle_share_item
         }
+        get_item: {
+            inputs: |address: Address|,
+            outputs: |result: ZomeApiResult<Option<Entry>>|,
+            handler: handle_get_item
+        }
+        add_link: {
+            inputs: |base: Address, target: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: handle_add_link
+        }
+        get_links: {
+            inputs: |base: Address|,
+            outputs: |result: ZomeApiResult<GetLinksResult>|,
+            handler: handle_get_links
+        }
+    ]
+
+    capabilities: {
+        public (Public) [share_item, get_item, add_link, get_links]
     }
 }
