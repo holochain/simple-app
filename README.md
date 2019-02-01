@@ -1,5 +1,10 @@
 To see the networking bug...
 
+Make sure you're up to date on n3h.
+
+Modify the following line in container-config.toml AND container-config-2.toml, to point to your n3h path
+n3h_path = "/Users/connor/code/holochain/n3h"
+
 In a terminal, run
 
 `holochain_container -c ./container-config.toml`
