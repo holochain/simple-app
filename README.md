@@ -1,3 +1,41 @@
+To see the networking bug...
+
+In a terminal, run
+
+`holochain_container -c ./container-config.toml`
+
+Note the bootstrap node from the debug logs, should look like:
+/ip4/192.168.1.182/tcp/36497/ipfs/QmQxMSMCtetqXbSbANHCahQ6iUTYbrURcT7r6ZHnaRNYbH
+
+Add that to the following line of `container-config-2.toml`
+bootstrap_nodes = ["/ip4..."]
+
+In another terminal, now run
+`holochain_container -c ./container-config-2.toml`
+
+In browsers, open up
+/ui/index.html and
+/ui2/index.html
+
+In one, create an entry, note the address
+
+In the other, attempt to get the entry at the address. The entry won't be found.
+
+we've identified through debugging that the issue where, with two nodes, one fails to 'hold' an entry that has been gossiped to it, this is what we know (condensed):
+it enters the hold_entry_workflow, but doesn't proceed past this line: https://github.com/holochain/holochain-rust/blob/develop/core/src/workflows/hold_entry.rs#L24
+It goes through reduce_get_validation_package, and eventually ends up calling this function, that is the deepest that I could get a println!, in net_connection_thread
+https://github.com/holochain/holochain-rust/blob/develop/net_connection/src/net_connection_thread.rs#L27
+
+It does not seem that the message actually gets dispatched though. At least, the other node does not show any signs of receiving a request_validation_package message
+
+We did a bunch of debugging to get as far as we did, which I pushed my debugging statements to this branch: 
+https://github.com/holochain/holochain-rust/commit/639807497e0371e5a77355123aa7ff764f7a6905
+
+Which, if you rebuild your container binary, you will get the debugging logs
+
+
+
+
 # simple-app
 
 [![Project](https://img.shields.io/badge/project-holochain-blue.svg?style=flat-square)](http://holochain.org/)

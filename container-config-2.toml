@@ -1,7 +1,7 @@
 [network]
 n3h_path = "/Users/connor/code/holochain/n3h"
 n3h_persistence_path = "/tmp"
-bootstrap_nodes = []
+bootstrap_nodes = ["/ip4/192.168.1.162/tcp/55013/ipfs/QmVYyr7eg3NEZpQbigKqUrpG256MZfNU1CioeWLJNaexBe"]
 
 [[agents]]
 id = "test_agent1"
@@ -30,17 +30,17 @@ hash = "Qm328wyq38924y"
 [[instances]]
 id = "test-instance1"
 dna = "simple_app_dna"
-agent = "test_agent1"
+agent = "test_agent2"
 [instances.storage]
 type = "file"
-path = "./tmp-storage"
+path = "./tmp-storage2"
 
 
 [[interfaces]]
 id = "websocket_interface"
 [interfaces.driver]
 type = "websocket"
-port = 8888
+port = 8889
 [[interfaces.instances]]
 id = "test-instance1"
 
