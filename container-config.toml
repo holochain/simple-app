@@ -1,7 +1,7 @@
-[network]
-n3h_path = "/Users/philipbeadle/holochain/Holochain/n3h"
-n3h_persistence_path = "/tmp"
-bootstrap_nodes = ["/ip4/192.168.1.182/tcp/39629/ipfs/QmTZHqc4x1h2fCQYrLFQs8o9UF6BBBWrL1CkdWRHvZ2UpU"]
+# [network]
+# n3h_path = "path/to/n3h"
+# n3h_persistence_path = "/tmp"
+# bootstrap_nodes = []
 
 [[agents]]
 id = "test_agent1"
@@ -9,17 +9,17 @@ name = "HoloTester1"
 public_address = "sandwich--------------------------------------------------------------------------AAAEqzh28L"
 key_file = "holo_tester.key"
 
-[[agents]]
-id = "test_agent2"
-name = "HoloTester2"
-public_address = "bagel-----------------------------------------------------------------------------AAADAq0mCu"
-key_file = "holo_tester.key"
+# [[agents]]
+# id = "test_agent2"
+# name = "HoloTester2"
+# public_address = "bagel-----------------------------------------------------------------------------AAADAq0mCu"
+# key_file = "holo_tester.key"
 
-[[agents]]
-id = "test_agent3"
-name = "HoloTester3"
-public_address = "croissant-------------------------------------------------------------------------AAAEuHzxV4"
-key_file = "holo_tester.key"
+# [[agents]]
+# id = "test_agent3"
+# name = "HoloTester3"
+# public_address = "croissant-------------------------------------------------------------------------AAAEuHzxV4"
+# key_file = "holo_tester.key"
 
 
 
@@ -35,7 +35,8 @@ id = "test-instance1"
 dna = "simple_app_dna"
 agent = "test_agent1"
 [instances.storage]
-type = "memory"
+type = "file"
+path = "./tmp-storage"
 
 
 [[interfaces]]
