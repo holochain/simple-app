@@ -1,13 +1,12 @@
 // This test file uses the tape testing framework.
 // To learn more, go here: https://github.com/substack/tape
 
-// use this when running off your own dev instance of the nodejs_container
-const { Config, Container, Scenario } = require('../../../Holochain/holochain-rust/nodejs_container')
-//const { Config, Container, Scenario } = require("@holochain/holochain-nodejs")
+// use this when running off your own dev instance of the nodejs_conductor
+const { Config, Conductor, Scenario } = require('../../holochain-rust/nodejs_conductor')
+//const { Config, Conductor, Scenario } = require("@holochain/holochain-nodejs")
 
 Scenario.setTape(require('tape'))
 
-//const dnaPath = "./dist/app_spec.hcpkg"
 const dnaPath = "./dist/bundle.json"
 
 const dna = Config.dna(dnaPath, 'app-spec')

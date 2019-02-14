@@ -24,7 +24,7 @@ pub struct Item {
 }
 
 pub fn handle_share_item(item: Item) -> ZomeApiResult<Address> {
-    hdk::debug(format!("sharing {:?}", item));
+    hdk::debug(format!("sharing {:?}", item))?;
     let post_entry = Entry::App("item".into(), item.into());
     let address = hdk::commit_entry(&post_entry)?;
     Ok(address)
@@ -35,7 +35,7 @@ pub fn handle_get_item(address: Address) -> ZomeApiResult<Option<Entry>> {
 }
 
 pub fn handle_add_link(base: Address, target: Address) -> ZomeApiResult<()> {
-    let address = hdk::link_entries(&base,&target,"the_tag")?;
+    let _address = hdk::link_entries(&base,&target,"the_tag")?;
     Ok(())
 }
 
@@ -103,7 +103,7 @@ define_zome! {
         }
     ]
 
-    capabilities: {
-        public (Public) [share_item, get_item, add_link, get_links]
+    traits: {
+        hc_public [share_item, get_item, add_link, get_links]
     }
 }
