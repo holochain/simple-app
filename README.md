@@ -47,7 +47,7 @@ READY! tcp://127.0.0.1:40197 ["/ip4/127.0.0.1/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxm
 
 Then, in another terminal window (from the same directory), run the second node on port 8889 using a different agent name and the address from the first node as the bootstrap node like this:
 ```shell
-HC_N3H_BOOTSTRAP_NODE=""/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi" HC_AGENT="testAgent2" HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
+HC_N3H_BOOTSTRAP_NODE=/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi HC_AGENT=testAgent2 HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
 ```
 
 7. **Finally to run the UI:** simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
