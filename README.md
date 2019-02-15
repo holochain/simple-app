@@ -50,7 +50,7 @@ Then, in another terminal window (from the same directory), run the second node 
 HC_N3H_BOOTSTRAP_NODE=""/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi" HC_AGENT="testAgent2" HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
 ```
 
-Finally to run the UI, simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
+7. **Finally to run the UI:** simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
 
 ## Bugs
 Currently n3h process spawned by `hc run` are not automatically killed when the run ends so you may have to kill them manually with `killall node`
