@@ -30,18 +30,34 @@ cd simple-app
 hc test
 ```
 
-4. Compile the DNA and run two instances of it. First, in one terminal window, run:
+4. Install the [n3h networking component](https://github.com/holochain/n3h)
+
+5. Compile the DNA:
 
 ```shell
-hc run --port 8888 --package
+hc package
 ```
 
-Then, in another terminal window, run:
+6. Run two instances of it specifying the install directory for n3h (in the examples below this is `/home/eric/holochain/n3h`). First, in one terminal window, run the first node on port 8888 like this:
+
 ```shell
-hc run --port 8889
+HC_N3H_PATH=/home/eric/holochain/n3h hc run --port 8888
+```
+Note the network address that is created for the node, you should see something like:
+
+``` shell
+READY! tcp://127.0.0.1:40197 ["/ip4/127.0.0.1/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi", "/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi"]
+```
+
+Then, in another terminal window (from the same directory), run the second node on port 8889 using a different agent name and the address from the first node as the bootstrap node like this:
+```shell
+HC_N3H_BOOTSTRAP_NODE=""/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi" HC_AGENT="testAgent2" HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
 ```
 
 Finally to run the UI, simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
+
+## Bugs
+Currently n3h process spawned by `hc run` are not automatically killed when the run ends so you may have to kill them manually with `killall node`
 
 ## Contribute
 Holochain is an open source project.  We welcome all sorts of participation and are actively working on increasing surface area to accept it.  Please see our [contributing guidelines](https://github.com/holochain/org/blob/master/CONTRIBUTING.md) for our general practices and protocols on participating in the community.
