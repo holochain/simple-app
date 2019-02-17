@@ -52,6 +52,8 @@ HC_N3H_BOOTSTRAP_NODE=/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8
 
 7. **Finally to run the UI:** simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
 
+**NOTE**: the repo also provides configuration files for running simple app using the [`holochain` conductor](https://github.com/holochain/holochain-rust/tree/develop/conductor) instead of use the `hc` cli.  You will have to edit the `n3h_path` for where you installed it, as well as add the `bootstrap_nodes` into the second config file each time you run the second node using the conductor.
+
 ## Bugs
 Currently n3h process spawned by `hc run` are not automatically killed when the run ends so you may have to kill them manually with `killall node`
 
