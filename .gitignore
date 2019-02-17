@@ -1,4 +1,6 @@
 dist/
 node_modules/
 target/
+tmp-storage*/
 .hc
+bundle.json

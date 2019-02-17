@@ -24,7 +24,7 @@ pub struct Item {
 }
 
 pub fn handle_share_item(item: Item) -> ZomeApiResult<Address> {
-    hdk::debug(format!("sharing {:?}", item));
+    hdk::debug(format!("sharing {:?}", item))?;
     let post_entry = Entry::App("item".into(), item.into());
     let address = hdk::commit_entry(&post_entry)?;
     Ok(address)
@@ -35,7 +35,7 @@ pub fn handle_get_item(address: Address) -> ZomeApiResult<Option<Entry>> {
 }
 
 pub fn handle_add_link(base: Address, target: Address) -> ZomeApiResult<()> {
-    let address = hdk::link_entries(&base,&target,"the_tag")?;
+    let _address = hdk::link_entries(&base,&target,"the_tag")?;
     Ok(())
 }
 
@@ -80,28 +80,30 @@ define_zome! {
 
     genesis: || { Ok(()) }
 
-    functions: {
-        main (Public) {
-            share_item: {
-                inputs: |item: Item|,
-                outputs: |result: ZomeApiResult<Address>|,
-                handler: handle_share_item
-            }
-            get_item: {
-                inputs: |address: Address|,
-                outputs: |result: ZomeApiResult<Option<Entry>>|,
-                handler: handle_get_item
-            }
-            add_link: {
-                inputs: |base: Address, target: Address|,
-                outputs: |result: ZomeApiResult<()>|,
-                handler: handle_add_link
-            }
-            get_links: {
-                inputs: |base: Address|,
-                outputs: |result: ZomeApiResult<GetLinksResult>|,
-                handler: handle_get_links
-            }
+    functions: [
+        share_item: {
+            inputs: |item: Item|,
+            outputs: |result: ZomeApiResult<Address>|,
+            handler: handle_share_item
         }
+        get_item: {
+            inputs: |address: Address|,
+            outputs: |result: ZomeApiResult<Option<Entry>>|,
+            handler: handle_get_item
+        }
+        add_link: {
+            inputs: |base: Address, target: Address|,
+            outputs: |result: ZomeApiResult<()>|,
+            handler: handle_add_link
+        }
+        get_links: {
+            inputs: |base: Address|,
+            outputs: |result: ZomeApiResult<GetLinksResult>|,
+            handler: handle_get_links
+        }
+    ]
+
+    traits: {
+        hc_public [share_item, get_item, add_link, get_links]
     }
 }
