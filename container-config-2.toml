@@ -1,7 +1,7 @@
 [network]
-n3h_path = "/Users/connor/code/holochain/n3h"
+n3h_path = "/home/connor/code/n3h"  # change this to your path!
 n3h_persistence_path = "/tmp"
-bootstrap_nodes = ["/ip4/192.168.1.162/tcp/55013/ipfs/QmVYyr7eg3NEZpQbigKqUrpG256MZfNU1CioeWLJNaexBe"]
+bootstrap_nodes = [] # add a bootstrap node here!
 
 [[agents]]
 id = "test_agent1"
@@ -27,13 +27,13 @@ file = "bundle.json"
 hash = "Qm328wyq38924y"
 
 [[instances]]
-id = "test-instance1"
+id = "test-instance"
 dna = "simple_app_dna"
 agent = "test_agent2"
 [instances.storage]
-type = "file"
-path = "./tmp-storage2"
-
+#type = "file"
+#path = "./tmp-storage2"
+type = "memory"
 
 [[interfaces]]
 id = "websocket_interface"
@@ -41,8 +41,7 @@ id = "websocket_interface"
 type = "websocket"
 port = 8889
 [[interfaces.instances]]
-id = "test-instance1"
-
+id = "test-instance"
 
 [logger]
 type = "debug"
