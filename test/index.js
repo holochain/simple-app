@@ -2,8 +2,8 @@
 // To learn more, go here: https://github.com/substack/tape
 
 // use this when running off your own dev instance of the nodejs_conductor
-const { Config, Conductor, Scenario } = require('../../holochain-rust/nodejs_conductor')
-//const { Config, Conductor, Scenario } = require("@holochain/holochain-nodejs")
+//const { Config, Conductor, Scenario } = require('../../holochain-rust/nodejs_conductor')
+const { Config, Conductor, Scenario } = require("@holochain/holochain-nodejs")
 
 Scenario.setTape(require('tape'))
 
