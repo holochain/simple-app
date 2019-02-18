@@ -1,5 +1,10 @@
 # simple-app
 
+## Compatibility
+please note, this repository contains versions that are compatible with the different versioned releases of Holochain. The main branch, develop, will track with the develop branch of `holochain-rust`. Please note that it may not always be up to date, since the `develop` branch gets new commits daily. 
+
+For the version compatible with `0.0.4-alpha`, please checkout the [master](https://github.com/holochain/simple-app/tree/master) branch.
+
 [![Project](https://img.shields.io/badge/project-holochain-blue.svg?style=flat-square)](http://holochain.org/)
 [![Chat](https://img.shields.io/badge/chat-chat%2eholochain%2enet-blue.svg?style=flat-square)](https://chat.holochain.net)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
