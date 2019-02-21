@@ -1,4 +1,7 @@
 dist
 test
-bundle.json
 README.md
+ui
+ui2
+conductor-config-2.toml
+conductor-config.toml
