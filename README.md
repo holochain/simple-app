@@ -47,12 +47,12 @@ HC_N3H_PATH=/home/eric/holochain/n3h hc run --port 8888
 Note the network address that is created for the node, you should see something like:
 
 ``` shell
-READY! tcp://127.0.0.1:40197 ["/ip4/127.0.0.1/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi", "/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi"]
+READY! wss://127.0.0.1:64518/ ["wss://192.168.0.11:64519/?a=hkYW7TrZUS1hy-i374iRu5VbZP1sSw2mLxP4TSe_YI1H2BJM3v_LgAQnpmWA_iR1W5k-8_UoA1BNjzBSUTVNDSIcz9UG0uaM"]
 ```
 
 Then, in another terminal window (from the same directory), run the second node on port 8889 using a different agent name and the address from the first node as the bootstrap node like this:
 ```shell
-HC_N3H_BOOTSTRAP_NODE=/ip4/192.168.1.5/tcp/46513/ipfs/Qmd7SXFpgr16kkEVHxmRR1csB8CYwsN79vBtdNvmKQBBwi HC_AGENT=testAgent2 HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
+HC_N3H_BOOTSTRAP_NODE=wss://192.168.0.11:64519/?a=hkYW7TrZUS1hy-i374iRu5VbZP1sSw2mLxP4TSe_YI1H2BJM3v_LgAQnpmWA_iR1W5k-8_UoA1BNjzBSUTVNDSIcz9UG0uaM HC_AGENT=testAgent2 HC_N3H_PATH=/home/eric/holochain/n3h  hc run --port 8889
 ```
 
 7. **Finally to run the UI:** simply open the `ui/index.html` file in a browser, and it should start communicating with the two instances of `hc` via websockets.
