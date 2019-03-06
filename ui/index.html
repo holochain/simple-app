@@ -11,15 +11,17 @@
   <script type="text/javascript" src="hclient-0.1.0.browser.min.js"></script>
 
   <script type="text/javascript">
-  const PORT = 8888
+  const PORT = 3000
   const URL = 'ws://localhost:'+PORT+"/"
 
   // holofy!!
   window.hClient.makeWebClient(window.holochainclient, URL).then(holoClient => {
+    console.log('holo-fication complete')
+
     window.hClient.installLoginDialog();  
     node("test-instance1")
 
-   function node(instance_id) {
+    function node(instance_id) {
        const html = '<h3>Node for ## at @@</h3>\
        <form id="node##">\
        <input type="text" id="message##"/>\
@@ -41,7 +43,12 @@
        html2 = replaceAll(html1,"@@",PORT)
        div.innerHTML += html2
 
+
+      console.log('attempting to connect to', URL)
+
        holoClient.connect().then(({call, close}) => {
+          console.log('connected to holochain instance')
+
            document.getElementById('share'+instance_id).addEventListener('click', e => {
                e.preventDefault()
 
@@ -88,7 +95,7 @@
            document.getElementById('close'+instance_id).addEventListener('click', e => {
                close()
            })
-       })
+       }).catch(e => console.error("Could not connect to holochain instance ", e))
    }
 
 
