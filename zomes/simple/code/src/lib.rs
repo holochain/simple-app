@@ -103,7 +103,7 @@ define_zome! {
         }
     ]
 
-    capabilities: {
-        public (Public) [share_item, get_item, add_link, get_links]
+    traits: {
+        hc_public [share_item, get_item, add_link, get_links]
     }
 }
