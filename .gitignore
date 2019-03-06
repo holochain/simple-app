@@ -1,6 +1,7 @@
 dist/
 node_modules/
 target/
+tmp-storage*/
 .hc
 bundle.json
 tmp-storage/cas
