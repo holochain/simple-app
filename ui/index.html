@@ -18,7 +18,8 @@
   window.hClient.makeWebClient(window.holochainclient, URL).then(holoClient => {
     console.log('holo-fication complete')
 
-    window.hClient.installLoginDialog();  
+    window.hClient.installLoginDialog()
+    window.hClient.triggerLoginPrompt()
     node("test-instance1")
 
     function node(instance_id) {
